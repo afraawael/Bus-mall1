@@ -54,17 +54,23 @@ new Catalog('wine-glass', '../img/wine-glass.jpg');
 
 
 
+
 function renderThreeImages() {
+  console.log(previouslyShown);
+
   // [];
   leftIndex = generateRandomIndex();
   middleIndex = generateRandomIndex();
   rightIndex = generateRandomIndex();
   //includes !
-  while (leftIndex === middleIndex || middleIndex === rightIndex || leftIndex === rightIndex) {
+  while (leftIndex === middleIndex || middleIndex === rightIndex || leftIndex === rightIndex || previouslyShown.includes(leftIndex) || previouslyShown.includes(middleIndex) || check(rightIndex,previouslyShown)) {
     rightIndex = generateRandomIndex();
     middleIndex = generateRandomIndex();
-
+    leftIndex = generateRandomIndex();
   }
+
+  previouslyShown = [leftIndex,middleIndex,rightIndex];
+
 
   leftImageElement.src = Catalog.allImages[leftIndex].source;
   Catalog.allImages[leftIndex].shown++;
@@ -74,6 +80,14 @@ function renderThreeImages() {
   Catalog.allImages[rightIndex].shown++;
 }
 
+let previouslyShown = [];
+function check(idx, array){
+  for(let i = 0 ; i <array.length; i++){
+    if(idx === array[i]){
+      return true;
+    }
+  } return false;
+}
 
 
 renderThreeImages();
@@ -133,27 +147,6 @@ function generateRandomIndex() {
 
 function afraa() {
   let ctx = document.getElementById('myChart');
-  // let myChart = new Chart(ctx, { // its an instance
-  //   type: 'bar',
-  //   data: {
-  //     labels: ['bashar','aisha','afraa'], // ['goat away' ,  ... 'sassy goat']
-  //     datasets: [{
-  //       label: 'Number Of votes',
-  //       data: [1,2,3,4,5],
-  //       backgroundColor: [
-  //         'rgba(255, 99, 132, 0.2)',
-  //       ],
-  //       borderWidth: 1
-  //     },{
-  //       label:'# of Shown',
-  //       data: [1,2,3,5,8],
-  //       backgroundColor:[
-  //         'rgb(192,192,192)'
-  //       ],
-  //       borderWidth: 1
-  //     }]
-  //   }
-  // });
   let myChart = new Chart(ctx, { // its an instance
     type: 'bar',
     data: {
