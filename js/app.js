@@ -119,9 +119,25 @@ function handleClicking(event) {
   }
 }
 
+function saveToLocalStorage(){
+  let arrayOfStorage = JSON.stringify(Catalog.allImages);
+
+  localStorage.setItem('Number of votes', arrayOfStorage);
+
+}
 
 
+function getOrderFromLs(){
+  let data = localStorage.getItem('Number of votes');
+  console.log(data);
+  let order = JSON.parse(data);
+  console.log(order);
+  if(order !== null){
+    Catalog.allImages = order;
+  }
 
+
+  getOrderFromLs();
 
 let arrayOfVotes = [];
 let arrayOfShown = [];
